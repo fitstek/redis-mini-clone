@@ -1,10 +1,12 @@
 require 'redis'
+require 'rredis/server'
+
 
 TEST_PORT = 6380
-describe Rredis , :acceptance do
+describe "Rredis" , :acceptance do
   it "responds to ping" do
     with_server do
-      expect(client.ping).to eq("OK")
+      expect(client.ping).to eq("PONG")
     end
   end
 
@@ -13,6 +15,14 @@ describe Rredis , :acceptance do
   end
 
   def with_server
+    # # add the next three lines to test the tests against a real redis server
+    # # the flushall command removes all key values pairs from redis
+    # #  start up a test server on our test port
+    # # redis-server --port 6380
+    # # running the spec agains the real redis server gives "PONG"
+    # client.flushall
+    # yield
+    # return
     server_thread = Thread.new do
       server = Rredis::Server.new(TEST_PORT)
       server.listen
