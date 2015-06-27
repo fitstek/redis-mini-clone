@@ -14,6 +14,13 @@ describe "Rredis" , :acceptance do
     end
   end
 
+  it "supports multiple clients simultaneously" do
+    with_server do
+      expect(client.echo("hello\nworld")).to eq "hello\nworld"
+      expect(client.echo("hello\nworld")).to eq "hello\nworld"
+    end
+  end
+
   it "echos message" do
     with_server do
       expect(client.echo("hello\nworld")).to eq "hello\nworld"

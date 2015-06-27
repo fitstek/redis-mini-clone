@@ -9,7 +9,12 @@ module Rredis
 
     def listen
       socket = TCPServer.new(port)
-      loop { handle_client socket.accept }
+      loop do
+        # starting a thread for each client trying to connect to our server
+        Thread.start(socket.accept) do |client|
+          handle_client client
+        end
+      end
       # we put the ensure to make sure that our sockets are closed
       # otherwise as in the case of the echo spec it hangs
       ensure
