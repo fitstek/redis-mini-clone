@@ -6,8 +6,8 @@ IO
 
 There are two types. Bloking and Non-blocking.
 
-
-| Blocking | Non-Blocking(used by redis)
-|:--------------- |:--------
-| Many threads| Single thread | Many commands can execute simultaneously| Single CPU hungry operation can block others | coordination overhead | No coordination hence higher throughput |
-
+| Blocking | Non-Blocking(used by redis)    |
+| --------|---------|
+| Many threads  | Single thread   |
+| Many commands can execute simultaneously | Single CPU hungry operation can block others |
+| coordination overhead | No coordination hence higher throughput |
