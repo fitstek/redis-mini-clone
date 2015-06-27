@@ -11,6 +11,8 @@ module Rredis
       socket = TCPServer.new(port)
       loop do
         # starting a thread for each client trying to connect to our server
+        # we are doing this because we are using blocking io operations on our sockets
+        # blocking io => accept, gets, read
         # Redis does not use threads to handle concurrent requests
         # It only uses a single thread
         Thread.start(socket.accept) do |client|
