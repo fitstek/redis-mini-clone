@@ -10,6 +10,12 @@ describe "Rredis" , :acceptance do
     end
   end
 
+  it "echos message" do
+    with_server do
+      expect(client.echo("hello\nworld")).to eq "hello\nworld"
+    end
+  end
+
   def client
     Redis.new(host: 'localhost', port: TEST_PORT)
   end
