@@ -11,6 +11,8 @@ module Rredis
       socket = TCPServer.new(port)
       loop do
         # starting a thread for each client trying to connect to our server
+        # Redis does not use threads to handle concurrent requests
+        # It only uses a single thread
         Thread.start(socket.accept) do |client|
           handle_client client
         end
@@ -18,6 +20,7 @@ module Rredis
       # we put the ensure to make sure that our sockets are closed
       # otherwise as in the case of the echo spec it hangs
       ensure
+        # always close open socket connections
         socket.close if socket
     end
 
